@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}
+Strona do logowania
+{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <form method="POST" class="form-group">
+      {% csrf_token%}
+      {{ form.as_p|crispy }}
+        <p>Nie masz konta ??<a href="/register1/">Rejestracja</a></p>
+      <button type="submit" class ="btn btn-success">Login</button>
+
+    </form>
+{% endblock %}

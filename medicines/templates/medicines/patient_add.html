@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %} Dodawanie leku {% endblock %}
+
+{% block content %}
+
+<div class="dashboard-content border-dashed p-3 m-4 view-height">
+    <form action="" method="POST" id="form-add-patients">
+        {% csrf_token %}
+        <div class="row border-bottom border-3">
+            <div class="col">
+                <h3 class="color-header text-uppercase">Dodawanie Pacjenta</h3>
+            </div>
+            <div class="col d-flex justify-content-end mb-2">
+                <button type="submit" form="form-add-patients" class="btn btn-info rounded-0 pt-0 pb-0 pr-4 pl-4">
+                    Wyślij
+                </button>
+            </div>
+        </div>
+
+        <table class="table borderless">
+            <tbody>
+            <tr class="d-flex">
+                <th scope="row" class="col-2">Imię</th>
+                <td class="col-7">
+                    <input required class="w-100 p-1" name="first_name" id="first_name">
+                </td>
+            </tr>
+            <tr class="d-flex">
+                <th scope="row" class="col-2">Nazwisko</th>
+                <td class="col-7">
+                    <input required class="w-100 p-1" name="last_name" id="last_name">
+                </td>
+            </tr>
+            <tr class="d-flex">
+                <th scope="row" class="col-2">Data urodzenia</th>
+                <td class="col-3">
+                    <input required class="p-1" type="date" name="patient_age" id="patient_age"
+                           value="{{ recent_patients.patient_age }}">
+                </td>
+            </tr>
+            <tr class="d-flex">
+                <th scope="row" class="col-2">Płeć</th>
+                <td class="col-3">
+                    {% for gender in Patients_choices %}
+                    <option value={{ gendee.0 }}> {{ gender.1 }} </option>
+                    {% endfor %}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </form>
+</div>
+        <div class="mt-4 ml-4 mr-4">
+        <div class="row border-bottom border-3">
+            <div class="col d-flex justify-content-end mb-2">
+                <a href="/medicines_list/" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">lista leków</a>
+            </div>
+        </div>
+<div>{% if message %}
+    <h1>{{ message }}</h1>
+    {% endif %}
+</div>{% endblock content %}

@@ -1,0 +1,81 @@
+
+{% extends "base.html" %}
+{% block title %}{% endblock %}
+{% block content %}
+<div class="dashboard-content border-dashed p-3 m-4 view-height">
+
+    <div class="mt-4 ml-4 mr-4">
+        <div class="row border-bottom border-3">
+            <div class="col"><h3 class="color-header text-uppercase">Szczegóły leku</h3></div>
+            <div class="col d-flex justify-content-end mb-2">
+                <a href="/medicines_list/" class="btn btn-dark rounded-0 pt-0 pb-0 pr-4 pl-4">Powrót</a>
+                <a href="/plan/add-recipe" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Dodaj przepis do planu</a>
+            </div>
+        </div>
+
+        <table class="table borderless">
+            <tbody>
+            <tr class="d-flex">
+                <th scope="row" class="col-2">Nazwa leku</th>
+                <td class="col-7">
+                    {{ medicine.name }}
+                </td>
+            </tr>
+            <tr class="d-flex">
+                <th scope="row" class="col-2">Działanie</th>
+                <td class="col-7">
+                        {% for action in medicine.medicines_action.all %}
+                            {{ action.get_name_display }}
+                        {% endfor %}
+                </td>
+            </tr>
+            <tr class="d-flex">
+                <th scope="row" class="col-2">dawkowanie</th>
+                <td class="col-7">
+                    {{ medicine.dosage }}
+                </td>
+            </tr>
+             <tr class="d-flex">
+                <th scope="row" class="col-2">data ważności</th>
+                <td class="col-7">
+                    {{ medicine.expiration_date }}
+                </td>
+            </tr>
+             <tr class="d-flex">
+                <th scope="row" class="col-2">kategoria leku</th>
+                <td class="col-7">
+                        {% for action in medicine.category.all %}
+                            {{ action.get_name_display }}
+                        {% endfor %}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="row d-flex">
+            <div class="col-5 border-bottom border-3"><h3
+                    class="text-uppercase">Sposób przygotowania</h3></div>
+            <div class="col-2"></div>
+            <div class="col-5 border-bottom border-3"><h3
+                    class="text-uppercase">Składniki</h3></div>
+        </div>
+        <div class="row d-flex">
+            <div class="col-5 p-4">
+                <p>{{ recipe.preparation }}</p>
+            </div>
+
+
+            <div class="col-2"></div>
+
+        </div>
+
+    </div>
+    <form action="/recipe/{{recipe.id}}/" method="POST" id="form-add-recipes-details">
+    {% csrf_token %}
+        <input type="hidden" name="recipe_id" id="recipe_id">
+        <div class="col d-flex justify-content-end mb-2">
+                    <button type="submit" form="form-add-recipes-details" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Polub przepis</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}

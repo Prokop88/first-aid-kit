@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %} Dodawanie leku {% endblock %}
+
+{% block content %}
+
+<div class="dashboard-content border-dashed p-3 m-4 view-height">
+    <form action="" method="POST" id="form-add-medicines">
+            {% csrf_token %}
+            <div class="row border-bottom border-3">
+                <div class="col">
+                    <h3 class="color-header text-uppercase">Edycja leku</h3>
+                </div>
+                <div class="col d-flex justify-content-end mb-2">
+                    <button type="submit" form="form-add-medicines" class="btn btn-dark rounded-0 pt-0 pb-0 pr-4 pl-4">Wyślij</button>
+                </div>
+            </div>
+
+        <table class="table borderless">
+            <tbody>
+            <tr class="d-flex">
+                <th scope="row" class="col-2">Nazwa Leku</th>
+                <td class="col-7">
+                    <input required class="w-100 p-1" name="name" id="name" value="{{ recent_medicine.name }}">
+                </td>
+            </tr>
+            <tr class="d-flex">
+                    <th scope="row" class="col-2">ID leku</th>
+                    <td class="col-7">
+                        <div>{{ recent_medicine.id }}</div>
+                        <input required class="w-100 p-1" type="hidden" name="id" id="id" value="{{ recent_medicine.id }}">
+                    </td>
+                </tr>
+            <tr class="d-flex">
+                <th scope="row" class="col-2">Działanie</th>
+                <td class="col-7">
+                    {% for medicines_action in medicines_actions %}
+                        <input  class="p-1" type="checkbox" name="medicines_action" id="medicines_action" value="{{ medicines_action.id }}"
+                           > {{ medicines_action.get_name_display }}
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr class="d-flex">
+                <th scope="row" class="col-2">Nazwa Międzynarodowa</th>
+                <td class="col-3">
+                    <input required class="p-1"  name="international_name" id="international_name" value="{{ recent_medicines.international_name }}">
+                </td>
+            </tr>
+            <tr class="d-flex">
+                <th scope="row" class="col-2">Dawka</th>
+                <td class="col-3">
+                    <input required class="p-1" type="number" name="dosage" id="dosage" value="{{ recent_medicines.dosage }}">
+                </td>
+            </tr>
+            <tr class="d-flex">
+                <th scope="row" class="col-2">Data ważności</th>
+                <td class="col-3">
+                    <input required class="p-1" type="date" name="expiration_date" id="expiration_date" value="{{ recent_medicines.expiration_date }}">
+                </td>
+            </tr>
+            <tr class="d-flex">
+               <th scope="row" class="col-2">Categoria</th>
+                <td class="col-3">
+                    {% for category in categorys %}
+                    <input  class="p-1" type="checkbox" name="category" id="category" value="{{ category.id }}"
+                           > {{ category.get_name_display }}
+                    {% endfor %}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </form>
+</div>
+
+{% endblock content %}

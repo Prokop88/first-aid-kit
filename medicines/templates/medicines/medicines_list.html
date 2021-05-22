@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %} Lista Leków{% endblock %}
+{% block content %}
+
+<div class="dashboard-content border-dashed p-3 m-4 view-height">
+
+        <div class="mt-4 ml-4 mr-4">
+        <div class="row border-bottom border-3">
+            <div class="col d-flex justify-content-end mb-2">
+                <a href="/medicines_add/" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Dodaj lek</a>
+            </div>
+        </div>
+
+    <div class="row border-bottom border-3 p-1 m-1">
+        <div class="col noPadding"><h3 class="color-header text-uppercase">Lista Leków</h3></div>
+    </div>
+
+    <table class="table border-bottom">
+
+        <thead>
+        <tr class="d-flex text-color-darker">
+            <th scope="col" class="col-2">NAZWA</th>
+            <th scope="col" class="col-7">Działanie</th>
+            <th scope="col" class="col-2 center">AKCJE</th>
+        </tr>
+        </thead>
+        <tbody class="text-color-lighter">
+
+        {% for medicine in medicines %}
+        <tr class="d-flex">
+            <td class="col-2">{{ medicine.name }}</td>
+            <td class="col-7">
+                {% for action in medicine.medicines_action.all %}
+                {{ action.get_name_display }}
+                {% endfor %}
+            </td>
+<!--            <td class="col-7">-->
+<!--                {% for category in medicine.category.all %}-->
+<!--                {{ category.get_name_display }}-->
+<!--                {% endfor %}-->
+<!--            </td>-->
+            <td class="col-2 d-flex align-items-center justify-content-center flex-wrap">
+
+                <a href="/medicines-delete/{{ medicines_id }}" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
+                <a href="/medicine_details/{{ medicine.id }}" class="btn btn-info">Szczegóły</a>
+                <a href="/medicine_edit/{{ medicine.id }}" class="btn btn-success">Edytuj</a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
